@@ -48,7 +48,7 @@ function loadSubmissions(year) {
         })
     }
 
-    axios.get("http://localhost:5000/submissions/" + urlExtension + year, {
+    axios.get("http://https://ajudaris-api.onrender.com/submissions/" + urlExtension + year, {
         headers: {
             Authorization: "Bearer " + window.sessionStorage.getItem("token")
         }
@@ -114,7 +114,7 @@ function loadSubmissions(year) {
                 return;
             } else {
                 let submissions = response.data
-                axios.get("http://localhost:5000/users/", {
+                axios.get("https://ajudaris-api.onrender.com/users/", {
                     headers: {
                         Authorization: "Bearer " + window.sessionStorage.getItem("token")
                     }
@@ -383,7 +383,7 @@ function feedModal(submission) {
 }
 
 function getFile(submission, type) {
-    axios.get("http://localhost:5000/submissions/" + type + "/" + submission._id, {
+    axios.get("https://ajudaris-api.onrender.com/submissions/" + type + "/" + submission._id, {
         headers: {
             Authorization: "Bearer " + window.sessionStorage.getItem("token")
         }
@@ -433,7 +433,7 @@ function downloadFile(resp, type, submission) {
 
 function decodeImage(submission) {
     return axios
-        .get("http://localhost:5000/submissions/images/" + submission._id, {
+        .get("https://ajudaris-api.onrender.com/submissions/images/" + submission._id, {
             headers: {
                 Authorization: "Bearer " + window.sessionStorage.getItem("token")
             }
@@ -659,7 +659,7 @@ function submissionVerifier(submission) {
 
 function editSubmission(submission, editedSubmission) {
     console.log(editedSubmission)
-    axios.put("http://localhost:5000/submissions/" + submission._id, editedSubmission, {
+    axios.put("https://ajudaris-api.onrender.com/submissions/" + submission._id, editedSubmission, {
         headers: {
             Authorization: "Bearer " + window.sessionStorage.getItem("token")
         }
