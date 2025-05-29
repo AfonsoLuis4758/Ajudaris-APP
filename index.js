@@ -5,7 +5,7 @@ function logIn(){
         password: document.getElementById("InputPassword").value
     }
 
-    axios.post("http://localhost:5000/users/login",data)
+    axios.post("https://ajudaris-api.onrender.com/users/login",data)
     .then((response) => {
         window.sessionStorage.setItem("token", response.data.accessToken)
         window.sessionStorage.setItem("refreshToken", response.data.refreshToken)
@@ -25,7 +25,7 @@ function logIn(){
 }
 
 document.getElementById("OTPSender").addEventListener("click", function(){
-    axios.post("http://localhost:5000/users/send-otp", {email: document.getElementById("ResetEmail").value, use: "reset"})
+    axios.post("https://ajudaris-api.onrender.com/users/send-otp", {email: document.getElementById("ResetEmail").value, use: "reset"})
     .then((response) => {
         console.log(response)
         alert("Verifique a sua caixa de endereço eletrónico para restablecer password (certifique-se que o email não está na caixa de spam)")
@@ -56,7 +56,7 @@ document.getElementById("passwordReseter").addEventListener("click", function(){
         alert("As passwords não coincidem")
         return
     }else{
-        axios.post("http://localhost:5000/users/password-reset", {password: document.getElementById("ResetPassword").value, otp: document.getElementById("OTP").value, email: document.getElementById("ResetEmail").value})
+        axios.post("https://ajudaris-api.onrender.com/users/password-reset", {password: document.getElementById("ResetPassword").value, otp: document.getElementById("OTP").value, email: document.getElementById("ResetEmail").value})
         .then((response) => {
             console.log(response)
             alert("Palavra-passe alterada com sucesso")

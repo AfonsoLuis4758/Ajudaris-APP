@@ -16,7 +16,7 @@ function loadUser () {
         email = window.localStorage.getItem("email")
     }
 
-    axios.get("http://localhost:5000/users/" + email,{
+    axios.get("https://ajudaris-api.onrender.com/users/" + email,{
         headers: {
                     Authorization: "Bearer " + window.sessionStorage.getItem("token")
                 }
@@ -213,7 +213,7 @@ function editUser() {
         teachers: teachersArray,
         interlocutors: interlocutorsArray
     }
-    axios.put("http://localhost:5000/users/" + email, data,{
+    axios.put("https://ajudaris-api.onrender.com/users/" + email, data,{
         headers: {
                     Authorization: "Bearer " + window.sessionStorage.getItem("token")
                 }

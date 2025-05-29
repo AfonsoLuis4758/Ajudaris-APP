@@ -7,7 +7,7 @@ document.getElementById("logOut").addEventListener("click", () => {
 let currentDate
 
 function getMessage() {
-    axios.get("http://localhost:5000/ajudaris", {
+    axios.get("https://ajudaris-api.onrender.com/ajudaris", {
         headers: {
                     Authorization: "Bearer " + window.sessionStorage.getItem("token")
                 }
@@ -15,7 +15,7 @@ function getMessage() {
         .then((response) => {
             if (window.localStorage.getItem("verified") == "false") {
                 if (confirm("A sua conta ainda não foi verificada. Deseja verificar agora?")) {
-                    axios.post("http://localhost:5000/users/send-otp", { email: window.localStorage.getItem("email"), use: "verification" })
+                    axios.post("https://ajudaris-api.onrender.com/users/send-otp", { email: window.localStorage.getItem("email"), use: "verification" })
                         .then((response) => {
                             console.log(response)
                             alert("Verifique a sua caixa de endereço eletrónico para verificar a sua conta (certifique-se que o email não está na caixa de spam)")
@@ -72,7 +72,7 @@ function getMessage() {
 
 
 function updateYear() {
-    axios.patch("http://localhost:5000/users/years/" + window.localStorage.getItem("email"), {
+    axios.patch("https://ajudaris-api.onrender.com/users/years/" + window.localStorage.getItem("email"), {
         date: currentDate
     }, {
         headers: {
@@ -97,7 +97,7 @@ function infoChanger() {
 
 
 function verifyAccount() {
-    axios.post("http://localhost:5000/users/email-verification", { email: window.localStorage.getItem("email"), otp: document.getElementById("verifyOTP").value }, {
+    axios.post("https://ajudaris-api.onrender.com/users/email-verification", { email: window.localStorage.getItem("email"), otp: document.getElementById("verifyOTP").value }, {
         headers: {
                     Authorization: "Bearer " + window.sessionStorage.getItem("token")
                 }

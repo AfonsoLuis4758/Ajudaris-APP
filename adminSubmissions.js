@@ -48,7 +48,7 @@ function loadSubmissions(year) {
         })
     }
 
-    axios.get("http://https://ajudaris-api.onrender.com/submissions/" + urlExtension + year, {
+    axios.get("https://ajudaris-api.onrender.com/submissions/" + urlExtension + year, {
         headers: {
             Authorization: "Bearer " + window.sessionStorage.getItem("token")
         }
@@ -212,7 +212,7 @@ function loadSubmissions(year) {
                             })
                             document.getElementById(index + "del").addEventListener("click", function () {
                                 if (confirm("Tem certeza que deseja eliminar este utilizador?")) {
-                                    axios.delete("http://localhost:5000/submissions/" + submission._id, {
+                                    axios.delete("https://ajudaris-api.onrender.com/submissions/" + submission._id, {
                                         headers: {
                                             Authorization: "Bearer " + window.sessionStorage.getItem("token")
                                         }
@@ -282,7 +282,7 @@ function markSubmission(id) {
 
         markers = markers.filter(marker => marker !== id)
 
-        axios.patch("http://localhost:5000/users/markers/" + window.localStorage.getItem("email"), {
+        axios.patch("https://ajudaris-api.onrender.com/users/markers/" + window.localStorage.getItem("email"), {
             markers: markers
         }, {
             headers: {
@@ -309,7 +309,7 @@ function markSubmission(id) {
     } else {
         markers.push(id)
 
-        axios.patch("http://localhost:5000/users/markers/" + window.localStorage.getItem("email"), {
+        axios.patch("https://ajudaris-api.onrender.com/users/markers/" + window.localStorage.getItem("email"), {
             markers: markers
         }, {
             headers: {
@@ -519,7 +519,7 @@ function feedEditModal(submission) {
     b1.addEventListener("click", function () {
         if (confirm("Tem certeza que deseja eliminar este utilizador?")) {
 
-            axios.delete("http://localhost:5000/submissions/" + submission._id, {
+            axios.delete("https://ajudaris-api.onrender.com/submissions/" + submission._id, {
                 headers: {
                     Authorization: "Bearer " + window.sessionStorage.getItem("token")
                 }

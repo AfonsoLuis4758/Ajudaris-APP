@@ -5,7 +5,7 @@ document.getElementById("logOut").addEventListener("click", () => {
 })
 
 function loadSubmissions() {
-    axios.get("http://localhost:5000/submissions/illustrations/" + window.localStorage.getItem("id"), {
+    axios.get("https://ajudaris-api.onrender.com/submissions/illustrations/" + window.localStorage.getItem("id"), {
         headers: {
                     Authorization: "Bearer " + window.sessionStorage.getItem("token")
                 }
@@ -107,7 +107,7 @@ function feedModal(submission) {
     <img src="assets/file-earmark.svg" alt="file image" id="currentFile" height="148px" class= 'highlightable'>`
     document.getElementById("currentFile").addEventListener("click", function () {
         let sub = submission
-        axios.get("http://localhost:5000/submissions/documents/" + submission._id, {
+        axios.get("https://ajudaris-api.onrender.com/submissions/documents/" + submission._id, {
             headers: {
                 Authorization: "Bearer " + window.sessionStorage.getItem("token")
             }
@@ -201,7 +201,7 @@ function downloadFile(resp, type, submission) {
 
 function decodeImage(submission) {
     return axios
-        .get("http://localhost:5000/submissions/images/" + submission._id, {
+        .get("https://ajudaris-api.onrender.com/submissions/images/" + submission._id, {
             headers: {
                 Authorization: "Bearer " + window.sessionStorage.getItem("token"),
             },
@@ -296,7 +296,7 @@ function submissionVerifier(submission, request) {
 }
 
 function editSubmission(submission, editedSubmission) {
-    axios.put("http://localhost:5000/submissions/illustrations/" + submission._id, editedSubmission, {
+    axios.put("https://ajudaris-api.onrender.com/submissions/illustrations/" + submission._id, editedSubmission, {
         headers: {
             Authorization: "Bearer " + window.sessionStorage.getItem("token")
         }
@@ -317,7 +317,7 @@ function editSubmission(submission, editedSubmission) {
 }
 
 document.getElementById("verifyButton").addEventListener("click", function () {
-    axios.post("http://localhost:5000/users/send-otp", { email: window.localStorage.getItem("email"), use: "verification" })
+    axios.post("https://ajudaris-api.onrender.com/users/send-otp", { email: window.localStorage.getItem("email"), use: "verification" })
         .then((response) => {
             console.log(response)
             alert("Verifique a sua caixa de endereço eletrónico para verificar a sua conta (certifique-se que o email não está na caixa de spam)")
@@ -339,7 +339,7 @@ document.getElementById("verifyButton").addEventListener("click", function () {
 })
 
 function verifyAccount() {
-    axios.put("http://localhost:5000/users/email-verification", { email: window.localStorage.getItem("email"), otp: document.getElementById("verifyOTP").value }, {
+    axios.put("https://ajudaris-api.onrender.com/users/email-verification", { email: window.localStorage.getItem("email"), otp: document.getElementById("verifyOTP").value }, {
         headers: {
                     Authorization: "Bearer " + window.sessionStorage.getItem("token")
                 }

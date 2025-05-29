@@ -1,6 +1,6 @@
 
 export function tokenController(callback,...params) {
-    axios.post("http://localhost:5000/users/auth/refresh",{refreshToken: window.sessionStorage.getItem("refreshToken"), email: window.localStorage.getItem("email")})
+    axios.post("https://ajudaris-api.onrender.com/users/auth/refresh",{refreshToken: window.sessionStorage.getItem("refreshToken"), email: window.localStorage.getItem("email")})
     .then((response)=>{
                     console.log("Token refreshed successfully");
                     console.log(response.data);

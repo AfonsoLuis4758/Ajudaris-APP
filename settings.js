@@ -15,7 +15,7 @@ function loadEmail() {
 
 function changePassword() {
     if (document.getElementById("InputPasswordNew").value == document.getElementById("InputPasswordConfirm").value) {
-        axios.patch("http://localhost:5000/users/" + window.localStorage.getItem("email"), {
+        axios.patch("https://ajudaris-api.onrender.com/users/" + window.localStorage.getItem("email"), {
             password: document.getElementById("InputPasswordNew").value
         }, {
             headers: {
@@ -40,7 +40,7 @@ function changePassword() {
 
 function deleteAccount() {
     if (confirm("Ao eliminar a sua conta, os dados que submeteu também serão eliminados. Confirmar?")) {
-        axios.delete("http://localhost:5000/users/" + window.localStorage.getItem("email"), {
+        axios.delete("https://ajudaris-api.onrender.com/users/" + window.localStorage.getItem("email"), {
             headers: {
                 Authorization: "Bearer " + window.sessionStorage.getItem("token")
             }

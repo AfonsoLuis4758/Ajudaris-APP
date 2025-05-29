@@ -287,7 +287,7 @@ function registerUser() {
             code: document.getElementById("Code").value,
         }
     }
-    axios.post(`http://localhost:5000/users/${role}s`,data)
+    axios.post(`https://ajudaris-api.onrender.com/users/${role}s`,data)
     .then((response) => {
         console.log(response.data)
         window.location.href = "index.html";

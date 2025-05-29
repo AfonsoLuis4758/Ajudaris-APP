@@ -5,7 +5,7 @@ document.getElementById("logOut").addEventListener("click", () => {
 })
 
 function loadSubmissions() {
-    axios.get("http://localhost:5000/submissions/" + window.localStorage.getItem("id"), {
+    axios.get("https://ajudaris-api.onrender.com/submissions/" + window.localStorage.getItem("id"), {
         headers: {
             Authorization: "Bearer " + window.sessionStorage.getItem("token")
         }
@@ -83,7 +83,7 @@ function loadSubmissions() {
                     })
                     document.getElementById(index + "del").addEventListener("click", function () {
                         if (confirm("Tem certeza que deseja eliminar este utilizador?")) {
-                            axios.delete("http://localhost:5000/submissions/" + submission._id, {
+                            axios.delete("https://ajudaris-api.onrender.com/submissions/" + submission._id, {
                                 headers: {
                                     Authorization: "Bearer " + window.sessionStorage.getItem("token")
                                 }
@@ -106,7 +106,7 @@ function loadSubmissions() {
 }
 
 document.getElementById("verifyButton").addEventListener("click", function () {
-    axios.post("http://localhost:5000/users/send-otp", { email: window.localStorage.getItem("email"), use: "verification" })
+    axios.post("https://ajudaris-api.onrender.com/users/send-otp", { email: window.localStorage.getItem("email"), use: "verification" })
         .then((response) => {
             console.log(response)
             alert("Verifique a sua caixa de endereço eletrónico para verificar a sua conta (certifique-se que o email não está na caixa de spam)")
@@ -131,7 +131,7 @@ document.getElementById("verifyButton").addEventListener("click", function () {
 })
 
 function verifyAccount() {
-    axios.put("http://localhost:5000/users/email-verification", { email: window.localStorage.getItem("email"), otp: document.getElementById("verifyOTP").value }, {
+    axios.put("https://ajudaris-api.onrender.com/users/email-verification", { email: window.localStorage.getItem("email"), otp: document.getElementById("verifyOTP").value }, {
         headers: {
             Authorization: "Bearer " + window.sessionStorage.getItem("token")
         }
@@ -159,7 +159,7 @@ function feedModal(submission) {
     document.getElementById("downloader").innerHTML = `
     <img src="assets/file-earmark.svg" alt="file image" id="currentFile" height="148px" class= 'highlightable'>`
     document.getElementById("currentFile").addEventListener("click", function () {
-        axios.get("http://localhost:5000/submissions/documents/" + submission._id, {
+        axios.get("https://ajudaris-api.onrender.com/submissions/documents/" + submission._id, {
             headers: {
                 Authorization: "Bearer " + window.sessionStorage.getItem("token")
             }
@@ -199,7 +199,7 @@ function feedModal(submission) {
 
         if (confirm("Tem certeza que deseja eliminar esta submissão?")) {
 
-            axios.delete("http://localhost:5000/submissions/" + submission._id, {
+            axios.delete("https://ajudaris-api.onrender.com/submissions/" + submission._id, {
                 headers: {
                     Authorization: "Bearer " + window.sessionStorage.getItem("token")
                 }
@@ -252,7 +252,7 @@ function addSubmission() {
                     document: data,
                     submitter: window.localStorage.getItem("id"),
                 }
-                axios.post("http://localhost:5000/submissions", submission, {
+                axios.post("https://ajudaris-api.onrender.com/submissions", submission, {
                     headers: {
                         Authorization: "Bearer " + window.sessionStorage.getItem("token")
                     }
@@ -284,7 +284,7 @@ function feedEditModal(submission) {
 
         if (confirm("Tem certeza que deseja eliminar esta submissão?")) {
 
-            axios.delete("http://localhost:5000/submissions/" + submission._id, {
+            axios.delete("https://ajudaris-api.onrender.com/submissions/" + submission._id, {
                 headers: {
                     Authorization: "Bearer " + window.sessionStorage.getItem("token")
                 }
@@ -331,7 +331,7 @@ function submissionVerifier(submission) {
 }
 
 function editSubmission(submission, editedSubmission) {
-    axios.put("http://localhost:5000/submissions/institutions/" + submission._id, editedSubmission, {
+    axios.put("https://ajudaris-api.onrender.com/submissions/institutions/" + submission._id, editedSubmission, {
         headers: {
             Authorization: "Bearer " + window.sessionStorage.getItem("token")
         }

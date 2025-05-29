@@ -6,7 +6,7 @@ document.getElementById("logOut").addEventListener("click", () => {
 let currentDate
 
 function getMessage() {
-    axios.get("http://localhost:5000/ajudaris", {
+    axios.get("https://ajudaris-api.onrender.com/ajudaris", {
         headers: {
             Authorization: "Bearer " + window.sessionStorage.getItem("token")
         }
@@ -45,7 +45,7 @@ function getMessage() {
 
 
 function updateYear() {
-    axios.patch("http://localhost:5000/users/years/" + window.localStorage.getItem("email"),{
+    axios.patch("https://ajudaris-api.onrender.com/users/years/" + window.localStorage.getItem("email"),{
         date: currentDate
     }, {
         headers: {

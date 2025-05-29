@@ -65,7 +65,7 @@ function loadSubmissions(year) {
 
 
 
-    axios.get("http://localhost:5000/submissions/" + urlExtension + year, {
+    axios.get("https://ajudaris-api.onrender.com/submissions/" + urlExtension + year, {
         headers: {
             Authorization: "Bearer " + window.sessionStorage.getItem("token")
         }
@@ -102,7 +102,7 @@ function loadSubmissions(year) {
                 return;
             } else {
                 let submissions = response.data
-                axios.get("http://localhost:5000/users/" + userExtension, {
+                axios.get("https://ajudaris-api.onrender.com/users/" + userExtension, {
                     headers: {
                         Authorization: "Bearer " + window.sessionStorage.getItem("token")
                     }
@@ -322,7 +322,7 @@ function submitRating(subId) {
 
     } else {
 
-        axios.patch("http://localhost:5000/users/ratings/" + window.localStorage.getItem("email"), {
+        axios.patch("https://ajudaris-api.onrender.com/users/ratings/" + window.localStorage.getItem("email"), {
             id: subId,
             rating: rating,
         }, {
@@ -348,7 +348,7 @@ function markSubmission(id) {
 
         markers = markers.filter(marker => marker !== id)
 
-        axios.patch("http://localhost:5000/users/markers/" + window.localStorage.getItem("email"), {
+        axios.patch("https://ajudaris-api.onrender.com/users/markers/" + window.localStorage.getItem("email"), {
             markers: markers
         }, {
             headers: {
@@ -374,7 +374,7 @@ function markSubmission(id) {
     } else {
         markers.push(id)
 
-        axios.patch("http://localhost:5000/users/markers/" + window.localStorage.getItem("email"), {
+        axios.patch("https://ajudaris-api.onrender.com/users/markers/" + window.localStorage.getItem("email"), {
             markers: markers
         }, {
             headers: {
@@ -411,7 +411,7 @@ function feedModal(submission) {
     <img src="assets/file-earmark.svg" alt="file image" id="currentFile" height="148px" class= 'highlightable'>`
     document.getElementById("currentFile").addEventListener("click", function () {
         let sub = submission
-        axios.get("http://localhost:5000/submissions/documents/" + submission._id, {
+        axios.get("https://ajudaris-api.onrender.com/submissions/documents/" + submission._id, {
             headers: {
                 Authorization: "Bearer " + window.sessionStorage.getItem("token")
             }
@@ -547,7 +547,7 @@ function downloadFile(resp, type, submission) {
 
 function decodeImage(submission) {
     return axios
-        .get("http://localhost:5000/submissions/images/" + submission._id, {
+        .get("https://ajudaris-api.onrender.com/submissions/images/" + submission._id, {
             headers: {
                 Authorization: "Bearer " + window.sessionStorage.getItem("token"),
             },
@@ -632,7 +632,7 @@ function feedEditModal(submission) {
     b1.addEventListener("click", function () {
         if (confirm("Tem certeza que deseja eliminar este utilizador?")) {
 
-            axios.delete("http://localhost:5000/submissions/" + submission._id, {
+            axios.delete("https://ajudaris-api.onrender.com/submissions/" + submission._id, {
                 headers: {
                     Authorization: "Bearer " + window.sessionStorage.getItem("token")
                 }
@@ -772,7 +772,7 @@ function submissionVerifier(submission) {
 
 function editSubmission(submission, editedSubmission) {
     console.log(editedSubmission)
-    axios.put("http://localhost:5000/submissions/" + submission._id, editedSubmission, {
+    axios.put("https://ajudaris-api.onrender.com/submissions/" + submission._id, editedSubmission, {
         headers: {
             Authorization: "Bearer " + window.sessionStorage.getItem("token")
         }

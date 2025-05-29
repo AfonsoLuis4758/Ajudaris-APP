@@ -9,7 +9,7 @@ document.getElementById("logOut2").addEventListener("click", () => {
 
 
 function loadUsers () {
-    axios.get("http://localhost:5000/users/",{
+    axios.get("https://ajudaris-api.onrender.com/users/",{
         headers: {
                     Authorization: "Bearer " + window.sessionStorage.getItem("token")
                 }
@@ -42,7 +42,7 @@ function loadUsers () {
                 })
                 document.getElementById(index+"del").addEventListener("click",function(){
                     if(confirm("Tem certeza que deseja eliminar este utilizador?")) {
-                        axios.delete("http://localhost:5000/users/" + user.email,{
+                        axios.delete("https://ajudaris-api.onrender.com/users/" + user.email,{
                             headers: {
                     Authorization: "Bearer " + window.sessionStorage.getItem("token")
                 }
@@ -125,7 +125,7 @@ function feedModal(user) {
             if(user.role === "admin"){  
                 alert("Não pode eliminar um administrador.")
             }else{
-            axios.delete("http://localhost:5000/users/" + user.email,{
+            axios.delete("https://ajudaris-api.onrender.com/users/" + user.email,{
                 headers: {
                     Authorization: "Bearer " + window.sessionStorage.getItem("token")
                 }
@@ -175,7 +175,7 @@ if (user.role == "institution") {
 
 function changePassword() {
     if (document.getElementById("InputPasswordNew").value == document.getElementById("InputPasswordConfirm").value) {
-        axios.patch("http://localhost:5000/users/" + window.localStorage.getItem("email"), {
+        axios.patch("https://ajudaris-api.onrender.com/users/" + window.localStorage.getItem("email"), {
             password: document.getElementById("InputPasswordNew").value
         }, {
             headers: {
