@@ -28,7 +28,7 @@ function editAjudaris() {
     }
     console.log(data)
 
-    axios.put("http://localhost:5000/ajudaris/", data, {
+    axios.put("https://ajudaris-api.onrender.com/ajudaris/", data, {
         headers: {
                     Authorization: "Bearer " + window.sessionStorage.getItem("token")
                 }
@@ -49,7 +49,7 @@ function editAjudaris() {
 let currentDate
 
 function getMessage() {
-    axios.get("http://localhost:5000/ajudaris/admins", {
+    axios.get("https://ajudaris-api.onrender.com/ajudaris/admins", {
         headers: {
                     Authorization: "Bearer " + window.sessionStorage.getItem("token")
                 }
@@ -91,7 +91,7 @@ function getMessage() {
 
 
 function updateYear() {
-    axios.patch("http://localhost:5000/users/years/" + window.localStorage.getItem("email"), {
+    axios.patch("http://https://ajudaris-api.onrender.com/users/years/" + window.localStorage.getItem("email"), {
         date: currentDate
     }, {
         headers: {
