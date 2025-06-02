@@ -29,7 +29,6 @@ function loadSubmissions() {
 
             })
             document.getElementById("dateSelect").addEventListener("change", function () {
-                console.log("oi")
                 const elements1 = document.getElementsByClassName("submission")
                 const elements2 = document.getElementsByClassName(document.getElementById("dateSelect").value)
                 for (let i = 0; i < elements1.length; i++) {
