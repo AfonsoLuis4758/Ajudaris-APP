@@ -1,4 +1,4 @@
-import { tokenController , logOut} from './tokenController.js';
+import { tokenController, logOut } from './tokenController.js';
 
 document.getElementById("logOut").addEventListener("click", () => {
     logOut()
@@ -7,8 +7,8 @@ document.getElementById("logOut").addEventListener("click", () => {
 function loadSubmissions() {
     axios.get("https://ajudaris-api.onrender.com/submissions/illustrations/" + window.localStorage.getItem("id"), {
         headers: {
-                    Authorization: "Bearer " + window.sessionStorage.getItem("token")
-                }
+            Authorization: "Bearer " + window.sessionStorage.getItem("token")
+        }
     })
         .then((response) => {
             console.log(response.data)
@@ -55,17 +55,32 @@ function loadSubmissions() {
                     } else if (submission.state == "selected") {
                         state = "Selecionada"
                     }
-
                     const tr = document.createElement("tr")
                     tr.classList.add("highlightable")
-                    tr.innerHTML = `<th scope="row" data-bs-toggle="modal" id="${index}title" data-bs-target="#viewModal"> ${submission.title}</th>
+                    if (window.localStorage.getItem("currentDate") == submission.date) {
+                        tr.innerHTML = `<th scope="row" data-bs-toggle="modal" id="${index}title" data-bs-target="#viewModal"> ${submission.title}</th>
                         <th data-bs-toggle="modal" data-bs-target="#viewModal" id="${index}author"> ${submission.author}</td>
                         <td data-bs-toggle="modal" data-bs-target="#viewModal" id="${index}state">${state}</td>
                         <td><button type="button" class="btn btn-outline-light d-inline-block"
                             style="background-color: #176131;" id ="${index}edit" data-bs-toggle="modal" data-bs-target="#editModal"><i class="bi bi-pencil" ></i><span class="desktop">Editar</span></button></td>
                         `
 
+                        
                     document.getElementById("tableBody").appendChild(tr)
+
+                        document.getElementById(index + "edit").addEventListener("click", function () {
+                            feedEditModal(submission)
+                        })
+                    }else{
+                        tr.innerHTML = `<th scope="row" data-bs-toggle="modal" id="${index}title" data-bs-target="#viewModal"> ${submission.title}</th>
+                        <th data-bs-toggle="modal" data-bs-target="#viewModal" id="${index}author"> ${submission.author}</td>
+                        <td data-bs-toggle="modal" data-bs-target="#viewModal" id="${index}state">${state}</td>
+                        `
+
+                        
+                    document.getElementById("tableBody").appendChild(tr)
+                    }
+
 
                     tr.classList.add(submission.date)
                     tr.classList.add("submission")
@@ -79,9 +94,6 @@ function loadSubmissions() {
                     document.getElementById(index + "state").addEventListener("click", function () {
                         feedModal(submission)
                     })
-                    document.getElementById(index + "edit").addEventListener("click", function () {
-                        feedEditModal(submission)
-                    })
 
 
                 })
@@ -92,7 +104,6 @@ function loadSubmissions() {
                 tokenController(loadSubmissions);
             }
             console.error(error);
-            alert("Erro ao receber dados. Tente novamente mais tarde.")
         })
 
 }
@@ -121,43 +132,45 @@ function feedModal(submission) {
 
     document.getElementById("viewFooter").innerHTML = ""
 
-    const b1 = document.createElement("div")
-    b1.style.width = "36%"
-    b1.innerHTML = `<button type="button" class="btn btn-primary" style="width:100% ;background-color: #88AA31; border: 0px;" data-bs-toggle="modal" data-bs-target="#editModal">Editar</button>`
+    if (window.localStorage.getItem("currentDate") == submission.date) {
 
-    if (submission.illustrated) {
-        decodeImage(submission).then((resp) => {
-            const src = resp[0]
-            if (src) {
-                document.getElementById("downloader2").innerHTML = `
-                    <img src="${src}" alt="image" id="currentImage" width="100%" class="highlightable">`;
-            } else {
-                document.getElementById("downloader2").innerHTML = `<img src="assets/file-image.svg" alt="image" id="currentImage" height="148px" class="highlightable">`;
-            }
-            document.getElementById("currentImage").addEventListener("click", () => downloadFile(resp[1], "images", submission));
-        });
-        document.getElementById("illustrator").innerHTML = "Submissão de imagem por: " + submission.illustrator.email
-
+        const b1 = document.createElement("div")
+        b1.style.width = "36%"
         b1.innerHTML = `<button type="button" class="btn btn-primary" style="width:100% ;background-color: #88AA31; border: 0px;" data-bs-toggle="modal" data-bs-target="#editModal">Editar</button>`
 
-    } else {
-        b1.innerHTML = `<button type="button" class="btn btn-primary" style="width:100% ;background-color: #88AA31; border: 0px;" data-bs-toggle="modal" data-bs-target="#editModal">Adicionar</button>`
+        if (submission.illustrated) {
+            decodeImage(submission).then((resp) => {
+                const src = resp[0]
+                if (src) {
+                    document.getElementById("downloader2").innerHTML = `
+                    <img src="${src}" alt="image" id="currentImage" width="100%" class="highlightable">`;
+                } else {
+                    document.getElementById("downloader2").innerHTML = `<img src="assets/file-image.svg" alt="image" id="currentImage" height="148px" class="highlightable">`;
+                }
+                document.getElementById("currentImage").addEventListener("click", () => downloadFile(resp[1], "images", submission));
+            });
+            document.getElementById("illustrator").innerHTML = "Submissão de imagem por: " + submission.illustrator.email
+
+            b1.innerHTML = `<button type="button" class="btn btn-primary" style="width:100% ;background-color: #88AA31; border: 0px;" data-bs-toggle="modal" data-bs-target="#editModal">Editar</button>`
+
+        } else {
+            b1.innerHTML = `<button type="button" class="btn btn-primary" style="width:100% ;background-color: #88AA31; border: 0px;" data-bs-toggle="modal" data-bs-target="#editModal">Adicionar</button>`
 
 
-        document.getElementById("downloader2").innerHTML = `<h6>Esta submissão ainda não foi ilustrada</h6>`
-        document.getElementById("illustrator").innerHTML = ""
+            document.getElementById("downloader2").innerHTML = `<h6>Esta submissão ainda não foi ilustrada</h6>`
+            document.getElementById("illustrator").innerHTML = ""
+        }
+
+
+        b1.addEventListener("click", function () {
+            feedEditModal(submission)
+        })
+
+
+
+        document.getElementById("viewFooter").appendChild(b1)
+
     }
-
-
-    b1.addEventListener("click", function () {
-        feedEditModal(submission)
-    })
-
-
-
-    document.getElementById("viewFooter").appendChild(b1)
-
-
 
 }
 
@@ -341,8 +354,8 @@ document.getElementById("verifyButton").addEventListener("click", function () {
 function verifyAccount() {
     axios.put("https://ajudaris-api.onrender.com/users/email-verification", { email: window.localStorage.getItem("email"), otp: document.getElementById("verifyOTP").value }, {
         headers: {
-                    Authorization: "Bearer " + window.sessionStorage.getItem("token")
-                }
+            Authorization: "Bearer " + window.sessionStorage.getItem("token")
+        }
     })
         .then((response) => {
             console.log(response)
