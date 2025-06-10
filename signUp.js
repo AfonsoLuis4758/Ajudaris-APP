@@ -1,7 +1,6 @@
 let role = "institution"
 
 function changeForm(x, direction) {
-
     if (document.getElementById("AccountType").value == "institution") {
         role = document.getElementById("AccountType").value
         
