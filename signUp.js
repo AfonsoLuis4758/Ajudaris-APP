@@ -294,7 +294,7 @@ function registerUser() {
     })
     .catch((error) => {
         console.error(error);
-        alert("Erro ao criar conta. Tente novamente mais tarde.")
+        alert("Erro ao criar conta. Verifique as datas de inscrição ou tente novamente mais tarde.")
     })
 
 }
