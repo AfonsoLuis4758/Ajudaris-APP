@@ -86,10 +86,17 @@ function loadSubmissions() {
                         })
                         document.getElementById(index + "del").addEventListener("click", function () {
                             if (confirm("Tem certeza que deseja eliminar este utilizador?")) {
-                                axios.delete("https://ajudaris-api.onrender.com/submissions/" + submission._id, {
+                                axios.delete("https://ajudaris-api.onrender.com/submissions/institutions/" + submission._id, {
                                     headers: {
                                         Authorization: "Bearer " + window.localStorage.getItem("token")
                                     }
+                                })
+                                .then(() => {
+                                    window.location.reload()
+                                })
+                                .catch((error) => {
+                                    console.error(error);
+                                    alert("Erro ao eliminar submissão. Tente novamente mais tarde.")
                                 })
                             }
                         })
@@ -224,13 +231,17 @@ function feedModal(submission) {
 
             if (confirm("Tem certeza que deseja eliminar esta submissão?")) {
 
-                axios.delete("https://ajudaris-api.onrender.com/submissions/" + submission._id, {
+                axios.delete("https://ajudaris-api.onrender.com/submissions/institutions/" + submission._id, {
                     headers: {
                         Authorization: "Bearer " + window.localStorage.getItem("token")
                     }
                 }
                 ).then(() => {
                     window.location.reload()
+                })
+                .catch((error) => {
+                        console.error(error);
+                        alert("Erro ao eliminar submissão. Tente novamente mais tarde.")
                 })
             }
         }
@@ -312,13 +323,17 @@ function feedEditModal(submission) {
 
         if (confirm("Tem certeza que deseja eliminar esta submissão?")) {
 
-            axios.delete("https://ajudaris-api.onrender.com/submissions/" + submission._id, {
+            axios.delete("https://ajudaris-api.onrender.com/submissions/institutions/" + submission._id, {
                 headers: {
                     Authorization: "Bearer " + window.localStorage.getItem("token")
                 }
             }
             ).then(() => {
                 window.location.reload()
+            })
+            .catch((error) => {
+                console.error(error);
+                alert("Erro ao eliminar submissão. Tente novamente mais tarde.")
             })
         }
     }
@@ -367,6 +382,7 @@ function editSubmission(submission, editedSubmission) {
         .then((response) => {
             console.log(response.data)
             alert("Submissão alterada com sucesso!")
+            window.location.reload()
         })
         .catch((error) => {
             if (error.response && error.response.status === 401) {

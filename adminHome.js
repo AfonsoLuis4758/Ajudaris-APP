@@ -16,17 +16,17 @@ function changeYear(operation) {
 
 
 function editAjudaris() {
+
     const data = {
         message: document.getElementById("editTextarea").value,
-        signUpDate: document.getElementById("editEndSignDate").value.toString(),
-        submissionDate: document.getElementById("editEndSubmissionDate").value.toString(),
+        signUpDate: document.getElementById("editEndSignDate").value,
+        submissionDate: document.getElementById("editEndSubmissionDate").value,
         currentDate: Number(document.getElementById("editYear").value),
         illustratorCode: document.getElementById("editIllustratorCode").value,
         juryCode: document.getElementById("editJuryCode").value,
         revisorCode: document.getElementById("editRevisorCode").value,
         designerCode: document.getElementById("editDesignerCode").value
     }
-    console.log(data)
 
     axios.put("https://ajudaris-api.onrender.com/ajudaris/", data, {
         headers: {
@@ -35,7 +35,6 @@ function editAjudaris() {
     })
         .then((response) => {
             console.log(response)
-            window.location.reload()
         })
         .catch((error) => {
             if (error.response && error.response.status === 401) {
