@@ -1,6 +1,5 @@
 const CACHE_STATIC_NAME = "static-v1";
-const CACHE_DYNAMIC_NAME = "dynamic-v1";
-
+const OFFLINE_URL = "/offline.html";
 
 self.addEventListener("install", function (e) {
     e.waitUntil(
@@ -28,38 +27,31 @@ self.addEventListener("install", function (e) {
 });
 
 self.addEventListener("fetch", function (e) {
-    async function handleNavigationRequest(request) {
-        try {
-            const networkResponse = await fetch(request);
-            return networkResponse;
-        } catch (error) {
-            console.log("Fetch failed; returning offline page instead.", error);
-
-            const cache = await caches.open(CACHE_STATIC_NAME);
-            const cachedResponse = await cache.match(OFFLINE_URL);
-            return cachedResponse;
-        }
-    }
-
-    if (e.request.mode === "navigate") {
-        e.respondWith(handleNavigationRequest(e.request));
+    // Network first for navigation and API requests, no dynamic caching
+    if (
+        e.request.mode === "navigate" ||
+        e.request.url.includes("/api/") ||
+        e.request.url.includes("/submissions") ||
+        e.request.url.includes("/users") ||
+        e.request.url.includes("/ajudaris")
+    ) {
+        e.respondWith(
+            fetch(e.request)
+                .then(function (res) {
+                    return res;
+                })
+                .catch(function () {
+                    // If network fails, show offline page for navigation, or nothing for API
+                    if (e.request.mode === "navigate") {
+                        return caches.match(OFFLINE_URL);
+                    }
+                    return new Response("", { status: 503, statusText: "Offline" });
+                })
+        );
     } else {
         e.respondWith(
             caches.match(e.request).then(function (response) {
-                if (response) {
-                    return response;
-                } else {
-                    return fetch(e.request)
-                        .then(function (res) {
-                            return caches.open(CACHE_DYNAMIC_NAME).then(function (cache) {
-                                cache.put(e.request.url, res.clone());
-                                return res;
-                            });
-                        })
-                        .catch(function (err) {
-                            console.log(err);
-                        });
-                }
+                return response || fetch(e.request);
             })
         );
     }
