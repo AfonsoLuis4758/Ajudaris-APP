@@ -5,7 +5,24 @@ const CACHE_DYNAMIC_NAME = "dynamic-v1";
 self.addEventListener("install", function (e) {
     e.waitUntil(
         caches.open(CACHE_STATIC_NAME).then(function (cache) {
-            return cache.addAll(["/index.html", "/index.css", "/offline.html", "adminHome.html","adminSubmissions.html","adminUsers.html","home.html","submissions.html","settings.html","illustratorHome.html","illustratorSubmissions.html","illustratorSettings.html","signUp.html","specialHome.html","specialSubmissions.html","specialSettings.html","/index.js", "adminHome.js","adminSubmissions.js","adminUsers.js","home.js","submissions.js","illustratorHome.js","illustratorSubmissions.js","illustratorSettings.js","settings.js","signUp.js","specialHome.js","specialSubmissions.js","specialSettings.js"]);
+            return cache.addAll([
+                "/offline.html",
+                "/index.css",
+                "assets/Ajudaris.png",
+                "assets/file-earmark.svg",
+                "assets/file-image.svg",
+                "assets/file-refresh.svg",
+                "assets/gear-fill.svg",
+                "assets/house.svg",
+                "assets/icon512_maskable.png",
+                "assets/icon512_rounded.png",
+                "assets/image-refresh.svg",
+                "assets/pencil.svg",
+                "assets/person.svg",
+                "assets/shield.svg",
+                "assets/trash.svg",
+                "assets/upload.svg"
+            ]);
         })
     );
 });

@@ -1,9 +1,9 @@
-/*if ("serviceWorker" in navigator) {
+if ("serviceWorker" in navigator) {
     console.log("service worker supported")
     navigator.serviceWorker.register("./sw.js").then(function () {
     console.log("service worker is registered")
     });
-}*/
+}
 
 
 function logIn(){
